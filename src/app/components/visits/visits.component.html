@@ -1,0 +1,93 @@
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">New Visit...</h4>
+                </div>
+                <div class="modal-body">
+                        <div class="form-group">
+                            <label for="Nit">Nit Client</label>
+                            <input type="text" class="form-control date" disabled [(ngModel)]="Nit" id="Nit" placeholder="Nit" />
+                        </div>
+                    <form [formGroup]="visitsForm" (ngSubmit)="RegisterVisit()">
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <select class="custom-select" formControlName="IdRepresentative" required [ngClass]="{ 'is-invalid': submitted && f.IdRepresentative.errors?.required }" >
+                                            <option value="" disabled>Choose Sale Representative</option>
+                                            <option *ngFor="let Representative of Representatives" [ngValue]="Representative.idSrepresentative" >{{Representative.name}}</option>
+                                        </select>
+                                        <div *ngIf="submitted && f.IdRepresentative.errors?.required" class="invalid-feedback">
+                                                <div *ngIf="f.IdRepresentative.errors?.required">The field Sale Representative is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="date" class="form-control" formControlName="VisitsDate" id="VisitsDate" placeholder="Visits Date" required [ngClass]="{ 'is-invalid': submitted && f.VisitsDate.errors }" />
+                                        <div *ngIf="submitted && f.VisitsDate.errors" class="invalid-feedback">
+                                                <div *ngIf="f.VisitsDate.errors.required">The Visit Date is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" formControlName="Net" id="Net" placeholder="Net" (change)="CalculateVist($event.target.value)" required [ngClass]="{ 'is-invalid': submitted && f.Net.errors }" />
+                                        <div *ngIf="submitted && f.Net.errors" class="invalid-feedback">
+                                                <div *ngIf="f.Net.errors.required">The field Net is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-6 col-sm-6 col-md-6">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" disabled formControlName="VisitTotal" id="VisitTotal" placeholder="Visit Total" required [ngClass]="{ 'is-invalid': submitted && f.VisitTotal.errors }" />
+                                        <div *ngIf="submitted && f.VisitTotal.errors" class="invalid-feedback">
+                                                <div *ngIf="f.VisitTotal.errors.required">The field Visit Total is required</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-12 col-md-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" formControlName="Description" id="Description" placeholder="Description" />
+                                    </div>
+                                </div>
+                            </div>
+                        <div>
+                            <button type="submit" id="btnVisit" class="btn btn-primary">New Visit</button>
+                        </div>
+                    </form>
+                    <button id="btnload" class="btn btn-link" (click)="LoadVisits()">Load Visits</button>
+                <table class="table table-striped custab">
+                    <thead>
+                        <tr>
+                            <th>
+                                Visit Date
+                            </th>
+                            <th>
+                                Visit Total
+                            </th>
+                            <th>
+                                Description
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="tbodyTiempos">
+                        <tr *ngFor="let visit of Visits"style="text-align:left">
+                            <td>{{visit.visitDate}}</td>
+                            <td>{{visit.visitTotal}}</td>
+                            <td>{{visit.description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="Clear()">Back</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>

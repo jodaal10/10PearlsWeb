@@ -1,0 +1,154 @@
+<div class="container col-md-8 jumbotron">    
+    <div class="body-content">
+            <div class="panel-heading">
+                <h3 class="panel-title">Customer Creation... <small>all information is required</small></h3>
+            </div>
+        <form [formGroup]="ClientForm" (ngSubmit)="CreateClient()">
+            <div class="form-group" hidden="true">
+                <input type="text" class="form-control" formControlName="IdClient" id="IdClient" disabled="disabled"/>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control date" formControlName="Nit" id="Nit" placeholder="Nit" required [ngClass]="{ 'is-invalid': submitted && f.Nit.errors }"/>
+                        <div *ngIf="submitted && f.Nit.errors" class="invalid-feedback">
+                                <div *ngIf="f.Nit.errors.required">The field Nit is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" formControlName="Fullname" id="Fullname" placeholder="Full Name" required [ngClass]="{ 'is-invalid': submitted && f.Fullname.errors }" />
+                        <div *ngIf="submitted && f.Fullname.errors" class="invalid-feedback">
+                                <div *ngIf="f.Fullname.errors.required">The field Fullname is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" formControlName="Address" id="Address" placeholder="Address" required [ngClass]="{ 'is-invalid': submitted && f.Address.errors }" />
+                        <div *ngIf="submitted && f.Address.errors" class="invalid-feedback">
+                                <div *ngIf="f.Address.errors.required">The field Address is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="text" class="form-control" formControlName="Phone" id="Phone" placeholder="Phone" required [ngClass]="{ 'is-invalid': submitted && f.Phone.errors }" />
+                        <div *ngIf="submitted && f.Phone.errors" class="invalid-feedback">
+                                <div *ngIf="f.Phone.errors.required">The field Phone is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="number" class="form-control" formControlName="Credit" id="Credit" placeholder="Credit Limit" required [ngClass]="{ 'is-invalid': submitted && f.Credit.errors }" />
+                        <div *ngIf="submitted && f.Credit.errors" class="invalid-feedback">
+                                <div *ngIf="f.Credit.errors.required">The field Credit Limit is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <input type="number" class="form-control" formControlName="VisitsP" id="VisitsP" placeholder="Visits Percentage " required [ngClass]="{ 'is-invalid': submitted && f.VisitsP.errors }" />
+                        <div *ngIf="submitted && f.VisitsP.errors" class="invalid-feedback">
+                                <div *ngIf="f.VisitsP.required">The field Credit Limit is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <select class="custom-select" (change)="changeCountry($event.target.value)" formControlName="Country" required [ngClass]="{ 'is-invalid': submitted && f.Country.errors?.required }" >
+                            <option value="" disabled>Choose Country</option>
+                            <option *ngFor="let country of countries" [ngValue]="country.idCountry" >{{country.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.Country.errors?.required" class="invalid-feedback">
+                                <div *ngIf="f.Country.errors?.required">The field City is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <select class="custom-select" (change)="changeState($event.target.value)" formControlName="State" required [ngClass]="{ 'is-invalid': submitted && f.State.errors?.required }" >
+                            <option value="" disabled>Choose State</option>
+                            <option *ngFor="let state of states" [ngValue]="state.idState" >{{state.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.State.errors?.required" class="invalid-feedback">
+                                <div *ngIf="f.State.errors?.required">The field City is required</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <div class="form-group">
+                        <select class="custom-select" formControlName="City" required [ngClass]="{ 'is-invalid': submitted && f.City.errors?.required }">
+                            <option value="" disabled>Choose City</option>
+                            <option *ngFor="let city of cities" [ngValue]="city.idCity" >{{city.name}}</option>
+                        </select>
+                        <div *ngIf="submitted && f.City.errors?.required" class="invalid-feedback">
+                                <div *ngIf="f.City.errors?.required">The field City is required</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <button type="submit" id="btnNew" class="btn btn-primary">New</button>
+                    <button *ngIf="modify" type="button" id="btnModify" (click)="ModifyCustomer(customer)" class="btn btn-danger">Modify</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div>
+    <table id="tableShow" class="table table-hover custab">
+    <thead class="thead-light">
+        <tr> <input
+            type="text"
+            class="form-control"
+            name="searchString"
+            placeholder="Search for Nit..."
+            [(ngModel)]="searchString"/>
+        </tr>
+        <tr>
+            <th>Nit</th>
+            <th>Full Name</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>City</th>
+            <th>Credit Limit</th>
+            <th>Avilable Credit</th>
+            <th>Visits Percentage</th>
+            <th>Visits</th>
+            <th colspan="3">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr *ngFor="let customer of customers | filter : 'nit' : searchString; let i = index">
+                <td>{{customer.nit}}</td>
+                <td>{{customer.fullName}}</td>
+                <td>{{customer.address}}</td>
+                <td>{{customer.phone}}</td>
+                <td>{{customer.namecity}}</td>
+                <td>{{customer.creditLimit}}</td>
+                <td>{{customer.availableCredit}}</td>
+                <td>{{customer.visitsPercentage}}</td>
+                <td>{{customer.creditLimit - customer.availableCredit}}</td>
+                <td style="padding: 0px;"><button class="btn" style="padding: 0px;" title="New Visit" data-toggle="modal" data-target="#myModal" (click)="LoadVisit(customer)" ><i class='fas fa-bicycle'></i></button></td>
+                <td style="padding: 0px;"><button class="btn" style="padding: 0px;" title="Modify Customer" (click)="LoadCustomer(customer)"><i class="fa fa-pen"></i></button></td>
+                <td style="padding: 0px;"><button class="btn" style="padding: 0px;" title="Delete Customer" (click)="DeleteCustomer(customer.idClient)"><i class="fa fa-trash"></i></button></td>                    
+            </tr>
+        </tbody>
+    </table>
+</div>
+<app-visits [Idclient]="idclientvisit" 
+            [Nit]="nitvisit" 
+            [Percetage]="visitspercen"
+            [CreditAvilable]="creditAvilable"
+            (refresh)="GetAllClients()"></app-visits>
+
